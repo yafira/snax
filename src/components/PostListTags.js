@@ -1,31 +1,46 @@
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
-import styles from '../styles/Home.module.css'
-import PostItem from './PostItem'
+import dynamic from "next/dynamic";
+import styles from "../styles/Home.module.css";
+import PostItem from "./PostItem";
 
-export default function PostListIndex({ posts }) {
-	if (!posts) return <h1>No snacks available.</h1>
+const Masonry = dynamic(
+  () => import("react-responsive-masonry").then((mod) => mod.default),
+  { ssr: false },
+);
 
-	return (
-		<main className={styles.main}>
-			<ResponsiveMasonry
-				columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1000: 4, 1200: 5 }}
-			>
-				<Masonry gutter={10}>
-					{posts?.map((post, index) => (
-						<PostItem
-							key={index}
-							imgURL={post.properties.Image.url}
-							title={post.properties.Snack.title[0].text.content}
-							rating={post.properties.Rating.rich_text[0].text.content}
-							description={
-								post.properties.Description.rich_text[0].text.content
-							}
-							tags={post.properties.Tags.multi_select}
-							tagPage
-						/>
-					))}
-				</Masonry>
-			</ResponsiveMasonry>
-		</main>
-	)
+const ResponsiveMasonry = dynamic(
+  () => import("react-responsive-masonry").then((mod) => mod.ResponsiveMasonry),
+  { ssr: false },
+);
+
+export default function PostListTags({ posts }) {
+  if (!posts || posts.length === 0) {
+    return <h1>No snacks available.</h1>;
+  }
+
+  return (
+    <main className={styles.main}>
+      <ResponsiveMasonry
+        columnsCountBreakPoints={{
+          350: 1,
+          750: 2,
+          900: 3,
+          1000: 4,
+          1200: 5,
+        }}
+      >
+        <Masonry gutter="16px">
+          {posts.map((post, index) => (
+            <PostItem
+              key={post.id || index}
+              imgURL={post.image || ""}
+              title={post.title || ""}
+              rating={post.rating || ""}
+              description={post.description || ""}
+              tags={post.tags || []}
+            />
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
+    </main>
+  );
 }

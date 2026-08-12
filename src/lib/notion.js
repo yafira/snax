@@ -12,9 +12,27 @@ const n2m = new NotionToMarkdown({
   notionClient: notion,
 });
 
+// Notion API 2025-09-03 split "databases" into a container plus one or
+// more "data sources" underneath it. Queries now target a data_source_id
+// instead of a database_id. NEXT_PUBLIC_DATABASE_ID is still a database
+// ID, so we resolve the data source once and cache it, since this blog's
+// database only has a single data source.
+let dataSourceIdPromise = null;
+
+const getDataSourceId = () => {
+  if (!dataSourceIdPromise) {
+    dataSourceIdPromise = notion.databases
+      .retrieve({ database_id: dbID })
+      .then((database) => database.data_sources[0].id);
+  }
+  return dataSourceIdPromise;
+};
+
 export const getAllPublished = async () => {
-  const posts = await notion.databases.query({
-    database_id: dbID,
+  const dataSourceId = await getDataSourceId();
+
+  const posts = await notion.dataSources.query({
+    data_source_id: dataSourceId,
     filter: {
       property: "Published",
       checkbox: {
@@ -73,8 +91,10 @@ function getToday(datestring) {
 
 export const getPostBySnack = async (snack) => {
   try {
-    const response = await notion.databases.query({
-      database_id: dbID,
+    const dataSourceId = await getDataSourceId();
+
+    const response = await notion.dataSources.query({
+      data_source_id: dataSourceId,
       filter: {
         property: "Snack",
         formula: {
@@ -106,8 +126,10 @@ export const getPostBySnack = async (snack) => {
 
 export const getPostsByTag = async (tag) => {
   try {
-    const response = await notion.databases.query({
-      database_id: dbID,
+    const dataSourceId = await getDataSourceId();
+
+    const response = await notion.dataSources.query({
+      data_source_id: dataSourceId,
       filter: {
         property: "Tags",
         multi_select: {

@@ -2,40 +2,39 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../styles/SearchBar.module.css'
 
-const SearchBar = () => {
+const SearchBar = ({ centered = false }) => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const router = useRouter()
 
-	const handleSearch = () => {
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		// skip empty searches
 		if (searchQuery.trim() !== '') {
 			router.push(`/search?query=${encodeURIComponent(searchQuery)}`)
 		}
 	}
 
-	const handleKeyPress = (e) => {
-		if (e.key === 'Enter') {
-			if (searchQuery.trim() !== '') {
-				handleSearch()
-			} else {
-				e.preventDefault() // Prevent page navigation if search query is empty
-			}
-		}
-	}
-
 	return (
-		<div className={styles.searchContainer}>
+		<form
+			className={`${styles.searchContainer} ${centered ? styles.centered : ''}`}
+			onSubmit={handleSubmit}
+			role='search'
+		>
+			<label htmlFor='snack-search' className={styles.srOnly}>
+				Search snacks
+			</label>
 			<input
+				id='snack-search'
 				className={styles.searchInput}
-				type='text'
+				type='search'
 				value={searchQuery}
 				onChange={(e) => setSearchQuery(e.target.value)}
-				onKeyPress={handleKeyPress}
-				placeholder='Search for snacks'
+				placeholder='what are you craving?'
 			/>
-			<button className={styles.searchButton} onClick={handleSearch}>
-				Search
+			<button className={styles.searchButton} type='submit'>
+				search
 			</button>
-		</div>
+		</form>
 	)
 }
 

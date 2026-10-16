@@ -23,7 +23,7 @@ export default function Home({ posts }) {
         <title>snax</title>
       </Head>
 
-      <Header />
+      <Header count={posts.length} />
       <PostListIndex posts={posts} />
       <Footer />
     </div>

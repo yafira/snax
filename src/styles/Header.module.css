@@ -1,116 +1,291 @@
 .Header {
-	font-family: 'Space Mono', monospace;
+	--ink: #6a4bc4;
+	--plum: #2b1f3a;
+	--cream: #fffbf2;
+	--pink: #f7d0dc;
+	--mint: #cff0c8;
+	--lilac: #d9cbfa;
+	--butter: #ffe29a;
+
+	position: relative;
+	overflow: hidden;
+	background: var(--cream);
+	border-bottom: 2px solid var(--plum);
+	color: var(--plum);
+	font-family: 'Poppins', sans-serif;
+	text-align: left;
 	margin-bottom: 30px;
-	user-select: none;
 }
 
 .Header a {
-	text-decoration: none;
+	color: var(--ink);
 }
 
 .Header a:hover {
-	color: rgb(187, 185, 253);
+	color: var(--plum);
 }
 
-.bgWrap {
-	position: fixed;
-	height: 100vh;
-	width: 100vw;
-	overflow: hidden;
-	z-index: -1;
+/* faded candy illustration across the top */
+.band {
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 300px;
+	opacity: 0.35;
+	pointer-events: none;
+	/* fade out at the bottom so there's no hard edge */
+	-webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+	mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 
-.logo {
-	width: 130px;
-	height: 130px;
-	margin: 20px;
-	padding: 10px;
-	/* border: 3px solid rgb(199, 179, 252); */
-	border-radius: 50%;
-	background-color: #fbe5e2;
-	border: 3px solid;
+.bandImg {
+	object-fit: cover;
 }
 
-.logo:hover {
-	width: 130px;
-	height: 130px;
-	margin: 20px 60px;
-	padding: 10px;
-	border-radius: 50%;
-	background-color: rgb(247, 208, 220);
-}
-
-.snaxBox {
-	display: inline-block;
-	border: rgb(247, 208, 220) 2px solid;
+.inner {
 	position: relative;
-	/* background-color: #a783e3;
-	background: linear-gradient(90deg, rgb(248, 233, 212) 0%, #fee9fa 100%); */
-	background: rgb(254, 251, 241);
-	background: linear-gradient(
-		0deg,
-		rgba(254, 251, 241, 1) 0%,
-		rgba(252, 238, 247, 1) 52%,
-		#f9eeee 100%
-	);
-	text-align: center;
-	border-radius: 50px;
-	margin-top: 100px;
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 40px 80px 48px;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
 }
 
-.snaxBox h1 {
-	margin: 0;
-	font-size: 50px;
+/* top bar */
+.topbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
 }
 
-.snaxBox h5,
-.snaxBox p {
-	font-family: 'Poppins', sans-serif;
-}
-
-.snaxBox h3 {
-	color: #a783e3;
-	font-weight: 100;
-	margin: 0;
-	padding: 5px;
+.brand {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	text-decoration: none;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 600;
 	font-size: 18px;
-	font-weight: 300;
 }
 
-.snaxBox h5 {
-	color: rgb(0, 0, 0);
-	font-size: 12px;
-	padding: 0px;
-	margin: 20px;
-	font-weight: 00;
+.Header .brand {
+	color: var(--plum);
 }
 
-.snaxBox p {
+.brandLogo {
+	width: 48px;
+	height: 48px;
+	box-sizing: border-box;
+	padding: 4px;
+	border-radius: 50%;
+	background: #fbe5e2;
+	border: 3px solid #fff;
+	outline: 2px solid var(--plum);
+	transform: rotate(-10deg);
+	transition: transform 0.2s;
+}
+
+.brand:hover .brandLogo {
+	transform: rotate(8deg);
+}
+
+.nav {
+	display: flex;
+	gap: 28px;
+	padding: 10px 22px;
+	background: #fff;
+	border: 2px solid var(--plum);
+	border-radius: 999px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 14px;
+}
+
+.nav a {
+	text-decoration: none;
+}
+
+/* hero: intro on the left, snack facts on the right */
+.hero {
+	display: flex;
+	align-items: center;
+	gap: 64px;
+}
+
+.intro {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.pills,
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	font-family: 'IBM Plex Mono', monospace;
+}
+
+.pills {
+	gap: 12px;
+	font-weight: 600;
+	font-size: 16px;
+}
+
+.tags {
+	gap: 10px;
+	font-weight: 500;
 	font-size: 13px;
-	padding: 0 40px;
-	margin: 8px;
-	color: rgb(0, 0, 0);
 }
 
-.snaxBox a {
-	color: rgb(145, 127, 247);
-	font-weight: 300;
+.pills span,
+.tags a {
+	display: inline-block;
+	border: 2px solid var(--plum);
+	border-radius: 999px;
+	transform: rotate(var(--tilt, 0deg));
 }
 
-@media screen and (max-width: 750px) {
-	.snaxBox {
-		border-radius: 0;
-		margin: 0;
+.pills span {
+	padding: 6px 16px;
+}
+
+.Header .tags a {
+	padding: 7px 14px;
+	color: var(--plum);
+	text-decoration: none;
+	transition: transform 0.15s;
+}
+
+.Header .tags a:hover {
+	transform: rotate(0deg) scale(1.06);
+}
+
+.pink { background: var(--pink); }
+.mint { background: var(--mint); }
+.lilac { background: var(--lilac); }
+.butter { background: var(--butter); }
+.white { background: #fff; }
+
+/* die-cut sticker wordmark */
+.wordmark {
+	margin: 0;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 700;
+	font-size: 150px;
+	line-height: 0.95;
+	letter-spacing: -0.05em;
+	text-shadow:
+		0 5px 0 #fff, 5px 0 0 #fff, -5px 0 0 #fff, 0 -5px 0 #fff,
+		4px 4px 0 #fff, -4px 4px 0 #fff, 4px -4px 0 #fff, -4px -4px 0 #fff,
+		7px 10px 0 var(--plum);
+}
+
+.Header .wordmark a {
+	color: var(--ink);
+	text-decoration: none;
+}
+
+.blurb {
+	margin: 0;
+	max-width: 520px;
+	font-size: 18px;
+	line-height: 1.55;
+	text-wrap: balance;
+}
+
+/* snack facts label */
+.facts {
+	width: 360px;
+	flex-shrink: 0;
+	box-sizing: border-box;
+	padding: 18px 20px;
+	background: #fff;
+	border: 2px solid var(--plum);
+	border-radius: 4px;
+	box-shadow: 8px 8px 0 var(--pink);
+	transform: rotate(2deg);
+	font-family: 'IBM Plex Mono', monospace;
+}
+
+.facts h2 {
+	margin: 0 0 4px;
+	font-size: 30px;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.serving {
+	font-size: 12px;
+	padding-bottom: 8px;
+	border-bottom: 8px solid var(--plum);
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+	font-size: 13px;
+	padding: 10px 0;
+	border-bottom: 1px solid var(--plum);
+}
+
+.row:last-of-type {
+	border-bottom-width: 4px;
+}
+
+.byline {
+	margin: 0;
+	padding-top: 10px;
+	font-size: 11px;
+	line-height: 1.5;
+}
+
+/* tablet: stack the label under the intro */
+@media screen and (max-width: 960px) {
+	.inner {
+		padding: 28px 32px 40px;
 	}
-	.snaxBox p {
-		font-size: 14px;
-		padding: 15px;
+
+	.hero {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 40px;
 	}
-	.Header h1 {
-		font-size: 30px;
-		/* text-decoration: none; */
+
+	.facts {
+		align-self: center;
+		width: 100%;
+		max-width: 360px;
 	}
-	.Header h5 {
-		font-size: 11px;
+}
+
+/* phone */
+@media screen and (max-width: 600px) {
+	.inner {
+		padding: 20px 20px 32px;
+		gap: 24px;
+	}
+
+	.nav {
+		gap: 16px;
+		padding: 8px 16px;
+		font-size: 13px;
+	}
+
+	.brand span {
+		display: none;
+	}
+
+	.wordmark {
+		font-size: 96px;
+	}
+
+	.blurb {
+		font-size: 16px;
+	}
+
+	.facts {
+		transform: rotate(1deg);
 	}
 }

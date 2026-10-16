@@ -38,17 +38,11 @@ const SearchPage = ({ searchResults }) => {
     result.title.toLowerCase().includes(query.toLowerCase()),
   );
 
-  const handleSearch = (newQuery) => {
-    if (newQuery.trim() !== "") {
-      router.push(`/search?query=${newQuery}`);
-    }
-  };
-
   return (
     <div>
       <SnaxLogo />
 
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar centered />
       <div className={styles.container}>
         <h2>search results for `{query}` </h2>
       </div>

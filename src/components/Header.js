@@ -36,8 +36,7 @@ export default function Header({ count }) {
             <span>snax.blog</span>
           </Link>
           <nav className={styles.nav} aria-label="main">
-            <Link href="/">all snax</Link>
-            <Link href="https://yafira.xyz/">about</Link>
+            <Link href="/about">about</Link>
           </nav>
         </div>
 

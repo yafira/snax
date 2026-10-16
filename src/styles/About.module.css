@@ -1,0 +1,106 @@
+.page {
+	--ink: #6a4bc4;
+	--plum: #2b1f3a;
+	--pink: #f7d0dc;
+	--mint: #cff0c8;
+	--lilac: #d9cbfa;
+
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 40px 24px 0;
+	color: var(--plum);
+	font-family: 'Poppins', sans-serif;
+	text-align: left;
+}
+
+.brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+	color: var(--plum);
+	text-decoration: none;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 600;
+	font-size: 18px;
+}
+
+.brandLogo {
+	width: 48px;
+	height: 48px;
+	box-sizing: border-box;
+	padding: 4px;
+	border-radius: 50%;
+	background: #fbe5e2;
+	border: 3px solid #fff;
+	outline: 2px solid var(--plum);
+	transform: rotate(-10deg);
+}
+
+/* the intro card, styled like the snack facts label */
+.card {
+	margin: 40px 0 60px;
+	padding: 36px 40px;
+	background: #fff;
+	border: 2px solid var(--plum);
+	border-radius: 4px;
+	box-shadow: 8px 8px 0 var(--pink);
+}
+
+.card h1 {
+	margin: 20px 0 16px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 700;
+	font-size: 44px;
+	line-height: 1.05;
+	letter-spacing: -0.03em;
+	color: var(--ink);
+}
+
+.card p {
+	margin: 0 0 16px;
+	font-size: 17px;
+	line-height: 1.65;
+	text-wrap: pretty;
+}
+
+.pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.pills span {
+	display: inline-block;
+	padding: 6px 14px;
+	border: 2px solid var(--plum);
+	border-radius: 999px;
+}
+
+.pink { background: var(--pink); transform: rotate(-3deg); }
+.mint { background: var(--mint); transform: rotate(2deg); }
+.lilac { background: var(--lilac); transform: rotate(-1deg); }
+
+.back {
+	display: inline-block;
+	margin-top: 8px;
+	color: var(--ink);
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 14px;
+}
+
+.back:hover {
+	color: var(--plum);
+}
+
+@media screen and (max-width: 600px) {
+	.card {
+		padding: 28px 22px;
+	}
+
+	.card h1 {
+		font-size: 34px;
+	}
+}
